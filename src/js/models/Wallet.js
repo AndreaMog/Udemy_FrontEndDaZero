@@ -1,6 +1,10 @@
-var OperationTypes = {
-    OUT: 0,
-    IN: 1
+var OperationTypes = { // Oggetto per definire i tipi di operazioni che possono essere effettuate nel wallet
+    OUT: 'OUT', // Tipo di operazione per uscita di denaro
+    IN: 'IN' // Tipo di operazione per entrata di denaro
+}
+
+var WalletErrors = { // Oggetto per definire i tipi di errori che possono verificarsi nel wallet
+    INVALID_OPERATION: 'INVALID_OPERATION'
 }
 
 function getWallet() { // Funzione per ottenere il wallet dal localStorage o creare un nuovo wallet se non esiste
@@ -18,10 +22,8 @@ function getWallet() { // Funzione per ottenere il wallet dal localStorage o cre
 
 }
 
-function saveWallet(wallet) { // Funzione per salvare il wallet nel localStorage
-
-    localStorage.setItem('wallet', JSON.stringify(wallet)); // Salva il wallet convertito in JSON nel localStorage
-
+function isValidOperation(operation) { // Funzione per validare un'operazione
+    return operation && operation.description && parseFloat(operation.amount) > 0 && typeof OperationTypes[operation.type] !== 'undefined'; // Controlla se l'operazione esiste, se ha una descrizione, se un importo maggiore di 0 e se è un tipo valido
 }
 
 function Wallet(){
@@ -36,12 +38,22 @@ function Wallet(){
         operations = wallet.operations; // Imposta le operazioni iniziali
     }
 
+    // Funzione privata per salvare il wallet nel localStorage, che prende un oggetto wallet e lo converte in JSON prima di salvarlo
+    function saveWallet() { // Funzione per salvare il wallet nel localStorage
+        localStorage.setItem('wallet', JSON.stringify({ balance: balance, operations: operations })); // Salva il wallet convertito in JSON nel localStorage
+    }
+
     // Funzioni pubbliche per gestire le operazioni e il bilancio del wallet
     this.addOperation = function(operation) {
+
+        if(!isValidOperation(operation)) { // Controlla se l'operazione è valida, se no esce dalla funzione
+            throw new Error(WalletErrors.INVALID_OPERATION); // Lancia un errore se l'operazione non è valida
+        }
+
         var operation = {
-            amount: operation.amount,
-            description: operation.description,
-            type: operation.type,
+            amount: parseFloat(operation.amount), // Converte l'importo in un numero decimale
+            description: operation.description, // Prende la descrizione dell'operazione
+            type: operation.type, // Prende il tipo dell'operazione (IN o OUT)
             date: new Date().getTime() // Aggiunge la data corrente in millisecondi 
         }  
 
