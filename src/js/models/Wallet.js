@@ -1,12 +1,17 @@
 function Wallet(){
+
     var balance = 0;
-    var operations = [];
+    var operations = []; 
 
     this.addOperation = function(){
         
     }
 
     this.removeOperation = function() {
+
+    }
+
+    this.findOperation = function() {
 
     }
 
