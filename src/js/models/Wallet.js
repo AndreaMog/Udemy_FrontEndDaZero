@@ -1,4 +1,9 @@
-function getWallet() {
+var OperationTypes = {
+    OUT: 0,
+    IN: 1
+}
+
+function getWallet() { // Funzione per ottenere il wallet dal localStorage o creare un nuovo wallet se non esiste
 
     var wallet = localStorage.getItem('wallet'); // Prova a prendere il wallet dal localStorage
 
@@ -10,6 +15,12 @@ function getWallet() {
     }
 
     return JSON.parse(wallet); // Se esiste, restituisci il wallet convertito da JSON
+
+}
+
+function saveWallet(wallet) { // Funzione per salvare il wallet nel localStorage
+
+    localStorage.setItem('wallet', JSON.stringify(wallet)); // Salva il wallet convertito in JSON nel localStorage
 
 }
 
@@ -26,8 +37,23 @@ function Wallet(){
     }
 
     // Funzioni pubbliche per gestire le operazioni e il bilancio del wallet
-    this.addOperation = function(){
-        
+    this.addOperation = function(operation) {
+        var operation = {
+            amount: operation.amount,
+            description: operation.description,
+            type: operation.type,
+            date: new Date().getTime() // Aggiunge la data corrente in millisecondi 
+        }  
+
+        if(operation.type === OperationTypes.IN) { // Se l'operazione è di tipo IN, aggiungi l'importo al bilancio
+            balance += operation.amount; // Aggiunge l'importo al bilancio
+        } else if (operation.type === OperationTypes.OUT) { // Se l'operazione è di tipo OUT, sottrai l'importo dal bilancio
+            balance -= operation.amount; // Sottrae l'importo dal bilancio
+        }
+
+        operations.push(operation); // Aggiunge operation all'array delle operazioni
+        saveWallet(); // Salva il wallet aggiornato nel localStorage
+
     }
 
     this.removeOperation = function() {
