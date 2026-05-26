@@ -4,7 +4,8 @@ var OperationTypes = { // Oggetto per definire i tipi di operazioni che possono 
 }
 
 var WalletErrors = { // Oggetto per definire i tipi di errori che possono verificarsi nel wallet
-    INVALID_OPERATION: 'INVALID_OPERATION'
+    INVALID_OPERATION: 'INVALID_OPERATION',
+    OPERATION_NOT_FOUND: 'OPERATION_NOT_FOUND'
 }
 
 function getWallet() { // Funzione per ottenere il wallet dal localStorage o creare un nuovo wallet se non esiste
@@ -68,7 +69,29 @@ function Wallet(){
 
     }
 
-    this.removeOperation = function() {
+    this.removeOperation = function(id) { // Il parametro id è l'identificatore dell'operazione da rimuovere, che in questo caso è la data in millisecondi (timestamp) dell'operazione
+        
+        var operationIndex; // Variabile per memorizzare l'indice dell'operazione da rimuovere
+        for(var i = 0; i < operations.length; i++) { // Cicla tutte le operazioni per trovare quella con l'id corrispondente
+            if(operations[i].date === id) { // Se trova l'operazione con l'id (timestamp) corrispondente
+                operationIndex = i; // Memorizza l'indice dell'operazione
+                break; // Esce dal ciclo
+            }
+        }
+
+        if(typeof operationIndex === 'undefined') { // Verifica se l'operazione da rimuovere è stata trovata, se no lancia un errore
+            throw new Error(WalletErrors.OPERATION_NOT_FOUND); // Lancia un errore se l'operazione non è stata trovata
+        }
+
+        var operation = operations[operationIndex]; // Salva l'operazione trovata in una variabile per poterla utilizzare dopo 
+        if(operation.type == OperationTypes.IN){ // Verifica il tipo dell'operazione da rimuovere, se è di tipo IN, sottrai l'importo dal bilancio per annullare l'effetto dell'operazione
+            balance -= operation.amount; // Rimuove l'importo dal bilancio
+        } else if(operation.type == OperationTypes.OUT){ //Verifica se è di tipo OUT, aggiungi l'importo al bilancio per annullare l'effetto dell'operazione
+            balance += operation.amount; // Aggiunge l'importo al bilancio
+        }
+
+        operations.splice(operationIndex, 1); // Rimuove un operazione dall'array di operazioni
+        saveWallet(); 
 
     }
 
