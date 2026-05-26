@@ -1,25 +1,24 @@
-(function() {
+(function(context) {
 
     var wallet;
 
-    function addOperation(operation) {
+    context.addOperation = function(operation) {
         wallet.addOperation(operation);
+    };
+
+    context.removeOperation = function(id) {
+        wallet.removeOperation(id);
     }
 
-    function removeOperation() {
+    context.findOperation = function() {
 
     }
 
-    function findOperation() {
-
-    }
-
-    function getBalance(){
-
+    context.getBalance = function(){
         return wallet.getBalance();
     }
 
-    function getOperations(){
+    context.getOperations = function(){
         return wallet.getOperations();
     }
 
@@ -27,4 +26,4 @@
         wallet = new Wallet();
     });
 
-})();
+})(window);
