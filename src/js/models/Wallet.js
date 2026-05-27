@@ -53,7 +53,7 @@ function Wallet(){
 
         var operation = {
             amount: parseFloat(operation.amount), // Converte l'importo in un numero decimale
-            description: operation.description, // Prende la descrizione dell'operazione
+            description: operation.description.trim(), // Prende la descrizione dell'operazione
             type: operation.type, // Prende il tipo dell'operazione (IN o OUT)
             date: new Date().getTime() // Aggiunge la data corrente in millisecondi 
         }  
@@ -95,8 +95,19 @@ function Wallet(){
 
     }
 
-    this.findOperation = function() {
+    this.findOperation = function(searchValue) {
+        var val = searchValue.toLowerCase().trim();
+        var operationFound = [];
 
+        for(var i = 0; i < operations.length; i++) { 
+            var description = operations[i].description.toLowerCase();
+            if(description.indexOf(val) > -1) { 
+                operationFound.push(operations[i]);
+                break; 
+            }
+        }
+
+        return operationFound;
     }
 
     this.getBalance = function(){
