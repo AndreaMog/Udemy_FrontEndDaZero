@@ -71,15 +71,11 @@ function Wallet(){
 
     this.removeOperation = function(id) { // Il parametro id è l'identificatore dell'operazione da rimuovere, che in questo caso è la data in millisecondi (timestamp) dell'operazione
         
-        var operationIndex; // Variabile per memorizzare l'indice dell'operazione da rimuovere
-        for(var i = 0; i < operations.length; i++) { // Cicla tutte le operazioni per trovare quella con l'id corrispondente
-            if(operations[i].date === id) { // Se trova l'operazione con l'id (timestamp) corrispondente
-                operationIndex = i; // Memorizza l'indice dell'operazione
-                break; // Esce dal ciclo
-            }
-        }
+        var operationIndex = findIndex(operations, function(operation){
+            return operation.date === id;
+        }); 
 
-        if(typeof operationIndex === 'undefined') { // Verifica se l'operazione da rimuovere è stata trovata, se no lancia un errore
+        if(operationIndex === -1) { // Verifica se l'operazione da rimuovere è stata trovata, se no lancia un errore
             throw new Error(WalletErrors.OPERATION_NOT_FOUND); // Lancia un errore se l'operazione non è stata trovata
         }
 
