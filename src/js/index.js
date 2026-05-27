@@ -10,7 +10,8 @@
         wallet.removeOperation(id);
     }
 
-    context.findOperation = function() {
+    context.findOperation = function(val) {
+        return wallet.findOperation(val);
 
     }
 
