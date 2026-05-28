@@ -1,12 +1,13 @@
 function findIndex(list, callback){ // Funzione per trovare l'indice di un elemento in una lista che soddisfa una condizione specificata da una callback
+    
     for(var i = 0; i < list.length; i++){
         if(callback(list[i])){
-            return i
+            return i;
         }
-
-        return -1;
-
     }
+
+    return -1;
+
 }
 
 function isValidOperation(operation) { // Funzione per verificare se un'operazione è valida, controllando se esiste, se ha una descrizione, se l'importo è maggiore di 0 e se il tipo è valido
