@@ -80,7 +80,7 @@ function Wallet(){
             var description = operations[i].description.toLowerCase();
             if(description.indexOf(val) > -1) { 
                 operationFound.push(operations[i]);
-                break; 
+                break; // Rimuovere il break se si volgiono trovare tutte le operazioni e non solo la prima
             }
         }
 

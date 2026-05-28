@@ -1,18 +1,28 @@
 (function(context) {
 
-    var wallet;
+    let wallet;
 
     context.addOperation = function(operation) {
-        wallet.addOperation(operation);
+        try {
+            wallet.addOperation(operation);
+        } catch(e){
+            console.error(e);
+        }
+        
     };
 
     context.removeOperation = function(id) {
-        wallet.removeOperation(id);
+
+        try {
+            wallet.removeOperation(id);
+        } catch(e){ // La variabile e sta per error
+            console.error(e);
+        }
+        
     }
 
     context.findOperation = function(val) {
         return wallet.findOperation(val);
-
     }
 
     context.getBalance = function(){
