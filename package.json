@@ -1,0 +1,25 @@
+{
+  "name": "money-tracking-app",
+  "version": "0.1.0",
+  "description": "Applicazione per la gestione del tuo denaro",
+  "keywords": [
+    "budget",
+    "app",
+    "money"
+  ],
+  "homepage": "https://github.com/AndreaMog/Udemy---FrontEndDaZero#readme",
+  "bugs": {
+    "url": "https://github.com/AndreaMog/Udemy---FrontEndDaZero/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndreaMog/Udemy---FrontEndDaZero.git"
+  },
+  "license": "SEE LICENSE IN LICNESE.md",
+  "author": "Andrea Mogavero",
+  "type": "commonjs",
+  "main": "src/js/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
