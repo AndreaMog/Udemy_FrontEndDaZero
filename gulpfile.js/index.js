@@ -34,6 +34,8 @@ const build = series(
     viewTasks.compileIndex, // 2. Compila l'HTML iniettando i riferimenti
     assetsTasks.processCSS, // 3. Elabora e compila i file CSS
     assetsTasks.watchCSS,   // 4. Avvia il monitoraggio sui file CSS (se in dev)
+    assetsTasks.processIcons,
+    assetsTasks.watchIcons,
     jsTasks.bundleJs,       // 5. Esegue il bundling dei file JavaScript
     jsTasks.watchJs,        // 6. Avvia il monitoraggio sui file JS (se in dev)
     viewTasks.watchIndex,   // 7. Avvia il monitoraggio sul file HTML (se in dev)

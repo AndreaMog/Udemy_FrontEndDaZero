@@ -34,6 +34,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-inject": "^5.0.5",
     "gulp-minify-css": "^1.2.4",
+    "gulp-svgmin": "^4.1.0",
     "jest": "^30.4.2",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"

@@ -29,6 +29,10 @@ const paths = {                                // Inizio dell'oggetto di configu
         entry: "index.css",                    // Nome del file CSS principale
         base: "css",                           // Nome della cartella sorgente CSS
         dist: "css"                            // Nome della cartella di output CSS
+    },
+    icons:{
+        base: "icons",
+        dist: "icons"
     }
 }
 
@@ -94,5 +98,12 @@ module.exports = {
     // Restituisce il percorso della cartella di output per i file CSS
     getCSSOutputPath: function() {
         return this.getDistFolder() + '/' + paths.css.dist;
+    },
+    getIconsSrcPath: function(innerPath) {
+        const baseIconsPath = paths.global.src + '/' +  paths.icons.base; // Costruisce la base del percorso CSS
+        if(innerPath) {                        // Se viene passato un sotto-percorso, lo concatena alla base
+            return baseIconsPath + innerPath;
+        }
+        return baseIconsPath;                    // Altrimenti restituisce solo il percorso base
     },
 }

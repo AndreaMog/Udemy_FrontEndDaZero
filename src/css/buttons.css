@@ -1,0 +1,11 @@
+.button-icon {  /*Stile del tasto elimina applicato di default*/
+    background-size: 24px;  
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    transition: background-size 0.3s ease; /*Rallenta l'effetto applicato con l'hover*/
+    margin: 0;
+}
+.button-icon:hover { /*Stile del tasto elimina applicato quando si passa col cursore sopra*/
+    background-size: 30px;
+}
